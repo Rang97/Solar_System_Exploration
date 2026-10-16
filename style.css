@@ -1,0 +1,78 @@
+/* SPACED HUD Custom Styling - 모서리 테두리 강화 버전 */
+.hud-border {
+   position: relative;
+}
+
+.hud-border::before,
+.hud-border::after,
+.hud-border-inner::before,
+.hud-border-inner::after {
+   content: "";
+   position: absolute;
+   width: 12px;
+   height: 12px;
+   border-color: #67afaf;
+   opacity: 1; /
+}
+
+/* 좌상단 (┌) */
+.hud-border::before {
+   top: -2px;
+   left: -2px;
+   border-top: 2px solid #67afaf;
+   border-left: 2px solid #67afaf;
+}
+
+.hud-border::after {
+   top: -2px;
+   right: -2px;
+   border-top: 2px solid #67afaf;
+   border-right: 2px solid #67afaf;
+}
+
+.hud-border-inner::before {
+   bottom: -2px;
+   left: -2px;
+   border-bottom: 2px solid #67afaf;
+   border-left: 2px solid #67afaf;
+}
+
+.hud-border-inner::after {
+   bottom: -2px;
+   right: -2px;
+   border-bottom: 2px solid #67afaf;
+   border-right: 2px solid #67afaf;
+}
+/* Vertical HUD Ruler Elements */
+.hud-ruler {
+   background-image: linear-gradient(to bottom, #67afaf 50%, transparent 50%);
+   background-size: 1px 12px;
+}
+
+/* Custom Swiper Bullet */
+.swiper-pagination-bullet {
+   background: rgba(255, 255, 255, 0.2) !important;
+   opacity: 1 !important;
+   width: 6px !important;
+   height: 6px !important;
+   transition: all 0.3s ease !important;
+}
+.swiper-pagination-bullet-active {
+   background: #00f0ff !important;
+   width: 18px !important;
+   border-radius: 3px !important;
+}
+
+/* Clean Scrollbar */
+::-webkit-scrollbar {
+   width: 4px;
+}
+::-webkit-scrollbar-track {
+   background: #050505;
+}
+::-webkit-scrollbar-thumb {
+   background: #222;
+}
+::-webkit-scrollbar-thumb:hover {
+   background: #00f0ff;
+}

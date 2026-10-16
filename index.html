@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="ko">
+   <head>
+      <meta charset="utf-8" />
+      <meta
+         name="viewport"
+         content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      />
+      <title>Solar System Exploration</title>
+      <script src="https://cdn.tailwindcss.com"></script>
+      <script>
+         tailwind.config = {
+            theme: {
+               extend: {
+                  fontFamily: {
+                     noto: ["Noto Sans KR", "sans-serif"],
+                     space: ["Space Grotesk", "sans-serif"],
+                     inter: ["Inter", "sans-serif"],
+                  },
+                  colors: {
+                     spacedBg: "#050505",
+                     cyanHud: "#00f0ff",
+                  },
+               },
+            },
+         };
+      </script>
+      <!-- CSS -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+      <link rel="stylesheet" href="style.css" />
+   </head>
+   <body class="font-inter bg-spacedBg text-white overflow-x-hidden selection:bg-cyanHud selection:text-black">
+      <div class="wrap relative w-full min-h-screen">
+         <!-- Left Sidebar HUD Bar (As seen in SPACED design) -->
+         <!-- <div
+            class="fixed left-4 sm:left-8 top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-center gap-6 z-30 pointer-events-none opacity-40"
+         >
+            <div class="w-px h-20 bg-gradient-to-b from-transparent via-cyanHud to-transparent"></div>
+            <div class="hud-ruler w-3 h-32"></div>
+            <span class="font-space text-[9px] tracking-[0.3em] rotate-90 text-cyanHud uppercase">HUD_v2.06</span>
+         </div> -->
+
+         <!-- Right Vertical Coordinates HUD -->
+         <!-- <div
+            class="fixed right-4 sm:right-6 top-1/2 -translate-y-1/2 hidden lg:block z-30 pointer-events-none opacity-30"
+         >
+            <p class="font-space text-[9px] tracking-[0.3em] rotate-90 text-white whitespace-nowrap">
+               40.748817° N, -73.985428° W
+            </p>
+         </div> -->
+
+         <!-- Mobile Drawer Overlay -->
+         <div
+            id="sideOverlay"
+            class="fixed inset-0 bg-black/90 z-50 opacity-0 pointer-events-none transition-opacity duration-300"
+         ></div>
+
+         <!-- Side Navigation Drawer -->
+         <div
+            id="sideDrawer"
+            class="fixed top-0 right-0 w-80 h-full bg-[#08080a] border-l border-white/10 z-50 transform translate-x-full transition-transform duration-300 overflow-y-auto"
+         >
+            <div class="p-8">
+               <div class="flex justify-end items-center pb-6 border-b border-white/10">
+                  <button id="closeSideBtn" class="text-gray-400 hover:text-cyanHud text-xl transition-colors">
+                     ✕
+                  </button>
+               </div>
+
+               <div class="my-8">
+                  <form action="#" onsubmit="event.preventDefault()" class="relative">
+                     <input
+                        type="text"
+                        placeholder="검색"
+                        class="w-full bg-white/5 border border-white/10 py-2.5 px-4 text-xs font-space text-white placeholder-gray-500 focus:outline-none focus:border-cyanHud transition-colors"
+                     />
+                     <button type="submit" class="absolute right-3 top-2.5 text-gray-400 hover:text-cyanHud text-xs">
+                        
+                     </button>
+                  </form>
+               </div>
+            </div>
+         </div>
+
+         <!-- Header -->
+         <header
+            class="fixed top-0 left-0 w-full z-40 px-6 sm:px-12 py-6 flex justify-between items-center bg-gradient-to-b from-black/80 to-transparent backdrop-blur-xs"
+         >
+            <!--Logo -->
+            <a
+               href="#"
+               class="font-space font-bold text-xl sm:text-2xl uppercase text-white hover:text-cyanHud transition-colors"
+            >
+               Solar System Exploration
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav
+               class="hidden md:flex items-center gap-10 font-space text-base tracking-[0.25em] text-gray-300 uppercase"
+            >
+               <a href="#hero" class="hover:text-cyanHud transition-colors">홈</a>
+               <a href="#destinations" class="hover:text-cyanHud transition-colors">행성들</a>
+               <a href="#experience" class="hover:text-cyanHud transition-colors">체험</a>
+               <a href="#news" class="hover:text-cyanHud transition-colors">소식</a>
+            </nav>
+
+            <div class="flex items-center gap-6">
+               <button id="openSideBtn" class="text-gray-300 hover:text-cyanHud text-base font-space tracking-widest">
+                  더보기
+
+               </button>
+            </div>
+         </header>
+
+         <!-- MAIN  -->
+         <main class="w-full">
+            <section class="relative w-screen h-screen min-h-[650px] overflow-hidden z-10" id="home">
+               <div class="swiper main_slide w-full h-full">
+                  <div class="swiper-wrapper">
+                     <div class="swiper-slide relative w-full h-full flex items-center px-[8%]">
+                        <div class="absolute top-0 right-0 w-full h-full z-1 opacity-40 md:opacity-100 "
+                        >
+                           <img
+                              src="/img/main_1.jpg"
+                              alt="Galaxy PC"
+                              class="w-full h-full object-cover"
+                           />
+                        </div>
+                        <div class="relative z-10 max-w-[700px] pt-24 md:pt-36">
+                           <h1
+                              class="text-xl font-medium tracking-widest text-cyanHud uppercase mb-3 flex items-center"
+                           >
+                              <span class="w-3 h-px"></span>
+                              우주가 낯선 여행자를 위한 안내서
+                           </h1>
+                           <p class="text-5xl md:text-7xl font-bold text-text-main mb-5 font-kr">
+                              1장. 성운 NEBULA
+                           </p>
+                        </div>
+                     </div>
+
+                                          <div class="swiper-slide relative w-full h-full flex items-center px-[8%]">
+                        <div class="absolute top-0 right-0 w-full h-full z-1 opacity-40 md:opacity-100 "
+                        >
+                           <img
+                              src="/img/main_2.jpg"
+                              alt="Galaxy PC"
+                              class="w-full h-full object-cover"
+                           />
+                        </div>
+                        <div class="relative z-10 max-w-[700px] pt-24 md:pt-36">
+                           <h1
+                              class="text-xl font-medium tracking-widest text-cyanHud uppercase mb-3 flex items-center"
+                           >
+                              <span class="w-3 h-px"></span>
+                              우주가 낯선 여행자를 위한 안내서
+                           </h1>
+                           <p class="text-5xl md:text-7xl font-bold text-text-main mb-5 font-kr">
+                              2장. 은하 GALAXY
+                           </p>
+                        </div>
+                     </div>
+
+                     <div class="swiper-slide relative w-full h-full flex items-center px-[8%]">
+                        <div class="absolute top-0 right-0 w-full h-full z-1 opacity-40 md:opacity-100 "
+                        >
+                           <img
+                              src="/img/main_3.jpg"
+                              alt="Galaxy PC"
+                              class="w-full h-full object-cover"
+                           />
+                        </div>
+                        <div class="relative z-10 max-w-[700px] pt-24 md:pt-36">
+                           <h1
+                              class="text-xl font-medium tracking-widest text-cyanHud uppercase mb-3 flex items-center"
+                           >
+                              <span class="w-3 h-px"></span>
+                              우주가 낯선 여행자를 위한 안내서
+                           </h1>
+                           <p class="text-5xl md:text-7xl font-bold text-text-main mb-5 font-kr">
+                              3장. 블랙홀 BLACKHOLE
+                           </p>
+                        </div>
+                     </div>
+
+                     <div class="swiper-slide relative w-full h-full flex items-center px-[8%]">
+                        <div class="absolute top-0 right-0 w-full h-full z-1 opacity-40 md:opacity-100 "
+                        >
+                           <img
+                              src="/img/mian_4.jpg"
+                              alt="Galaxy PC"
+                              class="w-full h-full object-cover"
+                           />
+                        </div>
+                        <div class="relative z-10 max-w-[700px] pt-24 md:pt-36">
+                           <h1
+                              class="text-xl font-medium tracking-widest text-cyanHud uppercase mb-3 flex items-center"
+                           >
+                              <span class="w-3 h-px"></span>
+                              우주가 낯선 여행자를 위한 안내서
+                           </h1>
+                           <p class="text-5xl md:text-7xl font-bold text-text-main mb-5 font-kr">
+                              4장. 은하수 MILKYWAY
+                           </p>
+                        </div>
+                     </div>
+
+                     <div class="swiper-slide relative w-full h-full flex items-center px-[8%]">
+                        <div class="absolute top-0 right-0 w-full h-full z-1 opacity-40 md:opacity-100 "
+                        >
+                           <img
+                              src="/img/main_5.jpg"
+                              alt="Galaxy PC"
+                              class="w-full h-full object-cover"
+                           />
+                        </div>
+                        <div class="relative z-10 max-w-[700px] pt-24 md:pt-36">
+                           <h1
+                              class="text-xl font-medium tracking-widest text-cyanHud uppercase mb-3 flex items-center"
+                           >
+                              <span class="w-3 h-px"></span>
+                              우주가 낯선 여행자를 위한 안내서
+                           </h1>
+                           <p class="text-5xl md:text-7xl font-bold text-text-main mb-5 font-kr">
+                              5장. 성단 STAR CLUSTER
+                           </p>
+                        </div>
+                     </div>
+                     
+                  </div>
+                  <!-- 페이지네이션 & 화살표 버튼 (옵션) -->
+                  <div class="swiper-pagination !bottom-8"></div>
+            </section>
+
+            <section
+               id="hero"
+               class="relative w-screen h-screen min-h-[650px] flex items-center px-6 sm:px-16 lg:px-24 overflow-hidden z-10" id="hero"
+            >
+<div class="absolute right-[-5%] sm:right-[0%] lg:right-[5%] w-[70vw] sm:w-[50vw] lg:w-[38vw] pointer-events-none z-0">
+   <img
+      src="./img/solar_system_back.png"
+      alt="Solar System Background"
+      class="w-full h-auto object-contain brightness-110 drop-shadow-[0_0_30px_rgba(255,255,255,0.05)]"
+   />
+</div>
+
+               <div class="relative z-10 max-w-3xl my-auto">
+                  <div class="space-y-6 pl-12">
+                     <span class="font-space text-xs tracking-widest uppercase block text-cyanHud"> SOLAR SYSTEM </span>
+                     <h1
+                        class="font-space text-4xl sm:text-6xl lg:text-7xl font-bold text-white uppercase leading-[1.05] pb-6"
+                     >
+                        태양계
+                     </h1>
+                     <h3></h3>
+                     <p
+                        class="hud-border text-base sm:text-lg lg:text-xl px-8 py-4 tracking-widest inline-block relative text-white font-space"
+                     >
+                        우주에는 우리와 같은 행성계가 많이 있는데, 행성들은 항상 주위를 돌고 있다. 우리 행성계는 태양을
+                        뜻하는 라틴어 '솔리스'와 태양과 관련된 모든 것의 이름을 따서 '솔'로 명명되었기 때문에
+                        '태양계'라고 불린다.
+                        <span class="hud-border-inner"></span>
+                     </p>
+                  </div>
+               </div>
+
+               <div
+                  class="absolute bottom-10 left-6 sm:left-16 right-6 sm:right-16 z-10 grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 font-space"
+               >
+<div class="absolute bottom-10 left-6 sm:left-16 right-6 sm:right-16 z-10 grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 border-t border-white/10 font-space">
+      <div>
+         <span class="text-sm text-cyanHud tracking-widest block uppercase mb-1">SOLAR SYSTEM ORIGIN</span>
+         <p class="text-sm text-gray-300 font-light">태양의 라틴어 '솔(Sol)'에서 유래한 우리 행성계의 기원.</p>
+      </div>
+      <div>
+         <span class="text-sm text-cyanHud tracking-widest block uppercase mb-1">ORBITAL DYNAMICS</span>
+         <p class="text-sm text-gray-300 font-light">모든 행성과 천체들은 태양의 중력 이끌림에 따라 궤도를 순환합니다.</p>
+      </div>
+      <div>
+         <span class="text-sm text-cyanHud tracking-widest block uppercase mb-1">EXPLORATION BOUNDS</span>
+         <p class="text-sm text-gray-300 font-light">수성부터 왜소행성 세레스까지, 태양계 전역을 향한 항해.</p>
+      </div>
+   </div>
+               </div>
+            </section>
+
+            <!-- 성운 은하 블랙홀 소개 -->
+            <section class="py-24 px-6 sm:px-16">
+               <div class="max-w-7xl mx-auto space-y-12">
+                  <div
+                     class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-b border-white/10 pb-6"
+                  >
+                     <div>
+                        <span class="font-space text-xs tracking-widest text-cyanHud uppercase">GUIDE</span>
+                        <h2 class="font-space text-3xl sm:text-4xl font-bold text-white uppercase mt-1">
+                           우주 가이드
+                        </h2>
+                     </div>
+                  </div>
+
+                  <!-- Swiper Carousel -->
+                  <div class="swiper guide_slide w-full">
+                     <div class="swiper-wrapper">
+                        <!-- Slide 1 -->
+                        <div class="swiper-slide bg-black border border-white/10 p-6 sm:p-8 space-y-6">
+                           <div class="h-64 sm:h-80 overflow-hidden relative">
+                              <img
+                                 src="img/main_slide_pc.png"
+                                 onerror="
+                                    this.src =
+                                       'https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?q=80&w=1200&auto=format&fit=crop'
+                                 "
+                                 alt="성운"
+                                 class="w-full h-full object-cover transition-all duration-700"
+                              />
+                              <span
+                                 class="absolute top-4 left-4 bg-black/80 font-space text-[10px] text-cyanHud px-3 py-1 border border-cyanHud/30 tracking-widest"
+                                 >NEBULA</span
+                              >
+                           </div>
+                           <div class="space-y-2">
+                              <h3 class="font-space text-xl font-bold text-white">성운 NGC 2014 & 2020</h3>
+                              <p class="text-sm text-gray-400 font-light leading-relaxed">
+                                 대마젤란운에 위치한 NGC 2014와 NGC 2020의 모습. 붉은 빛을 띄는 성운과 파란 빛의
+                                 별무리가 아름답게 어우러집니다.
+                              </p>
+                           </div>
+                        </div>
+
+                        <!-- Slide 2 -->
+                        <div class="swiper-slide bg-black border border-white/10 p-6 sm:p-8 space-y-6">
+                           <div class="h-64 sm:h-80 overflow-hidden relative">
+                              <img
+                                 src="img/main_slide2_pc.png"
+                                 onerror="
+                                    this.src =
+                                       'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1200&auto=format&fit=crop'
+                                 "
+                                 alt="은하"
+                                 class="w-full h-full object-cover transition-all duration-700"
+                              />
+                              <span
+                                 class="absolute top-4 left-4 bg-black/80 font-space text-[10px] text-cyanHud px-3 py-1 border border-cyanHud/30 tracking-widest"
+                                 >GALAXY</span
+                              >
+                           </div>
+                           <div class="space-y-2">
+                              <h3 class="font-space text-xl font-bold text-white">안드로메다 은하 (M31)</h3>
+                              <p class="text-sm text-gray-400 font-light leading-relaxed">
+                                 지구와 가장 가까운 나선 은하로, 암청회색 고리들은 뜨겁고 어린 별들의 보금자리입니다.
+                              </p>
+                           </div>
+                        </div>
+
+                        <!-- Slide 3 -->
+                        <div class="swiper-slide bg-black border border-white/10 p-6 sm:p-8 space-y-6">
+                           <div class="h-64 sm:h-80 overflow-hidden relative">
+                              <img
+                                 src="./img/"
+                                 onerror="
+                                    this.src =
+                                       'https://images.unsplash.com/photo-1502134249126-9f3755a50d78?q=80&w=1200&auto=format&fit=crop'
+                                 "
+                                 alt="블랙홀"
+                                 class="w-full h-full object-cove transition-all duration-700"
+                              />
+                              <span
+                                 class="absolute top-4 left-4 bg-black/80 font-space text-[10px] text-cyanHud px-3 py-1 border border-cyanHud/30 tracking-widest"
+                                 >BLACK HOLE</span
+                              >
+                           </div>
+                           <div class="space-y-2">
+                              <h3 class="font-space text-xl font-bold text-white">백조자리 X-1</h3>
+                              <p class="text-sm text-gray-400 font-light leading-relaxed">
+                                 최초로 관측된 강력한 X선 블랙홀 천체. 주변 시공간의 거대한 충격파가 관측됩니다.
+                              </p>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="swiper-pagination !relative !mt-8"></div>
+                  </div>
+               </div>
+            </section>
+
+            <!-- 행성 설명 -->
+            <section id="destinations" class="py-28 px-6 sm:px-16 border-t border-white/10">
+               <div class="max-w-7xl mx-auto space-y-16">
+                  <div class="text-center space-y-3">
+                     <span class="font-space text-xs tracking-widest text-cyanHud">PLANETS</span>
+                     <h2 class="font-space text-3xl sm:text-5xl font-bold text-white">행성들</h2>
+                  </div>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+                     <div class="hud-border bg-black/60 p-8 text-center space-y-6 transition-colors">
+                        <div class="w-36 h-36 mx-auto relative flex justify-center items-center">
+                           <img
+                              src="./img/mercury.png"
+                              alt="Mercury"
+                              class="w-full h-full object-contain rounded-full"
+                           />
+                        </div>
+                        <div class="space-y-2 border-t border-white/10 pt-4">
+                           <span class="font-space text-[10px] text-cyanHud tracking-widest block">MERCURY</span>
+                           <h3 class="font-space text-xl font-semibold text-white">수성</h3>
+                           <p class="text-xs text-gray-400 font-light">태양계의 첫 번째 행성이자 가장 작은 행성</p>
+                        </div>
+                     </div>
+                     <div class="hud-border bg-black/60 p-8 text-center space-y-6 transition-colors">
+                        <div class="w-36 h-36 mx-auto relative flex justify-center items-center">
+                           <img
+                              src="./img/venus.png"
+                              alt="Venus"
+                              class="w-full h-full object-contain rounded-full"
+                           />
+                        </div>
+                        <div class="space-y-2 border-t border-white/10 pt-4">
+                           <span class="font-space text-[10px] text-cyanHud tracking-widest block">VENUS</span>
+                           <h3 class="font-space text-xl font-semibold text-white">금성</h3>
+                           <p class="text-xs text-gray-400 font-light">지구의 쌍둥이 행성</p>
+                        </div>
+                     </div>
+                     <div class="hud-border bg-black/60 p-8 text-center space-y-6 transition-colors">
+                        <div class="w-36 h-36 mx-auto relative flex justify-center items-center">
+                           <img
+                              src="./img/uranus.png"
+                              alt="Uranus"
+                              class="w-full h-full object-contain rounded-full"
+                           />
+                        </div>
+                        <div class="space-y-2 border-t border-white/10 pt-4">
+                           <span class="font-space text-[10px] text-cyanHud tracking-widest block">URANUS</span>
+                           <h3 class="font-space text-xl font-semibold text-white">천왕성</h3>
+                           <p class="text-xs text-gray-400 font-light">아름다운 청록색의 거대한 얼음 행성</p>
+                        </div>
+                     </div>
+                     <div class="hud-border bg-black/60 p-8 text-center space-y-6 transition-colors">
+                        <div class="w-36 h-36 mx-auto relative flex justify-center items-center">
+                           <img
+                              src="./img/jupiter.png"
+                              alt="Saturn"
+                              class="w-full h-full"
+                           />
+                        </div>
+                        <div class="space-y-2 border-t border-white/10 pt-4">
+                           <span class="font-space text-[10px] text-cyanHud tracking-widest block">JUPITER</span>
+                           <h3 class="font-space text-xl font-semibold text-white">목성</h3>
+                           <p class="text-xs text-gray-400 font-light">단단한 지표면이 없는 거대 기체 행성</p>
+                        </div>
+                     </div>
+                     <div class="hud-border bg-black/60 p-8 text-center space-y-6 transition-colors">
+                        <div class="w-36 h-36 mx-auto relative flex justify-center items-center">
+                           <img
+                              src="./img/mars.png"
+                              alt="Mars"
+                              class="w-full h-full object-contain rounded-full"
+                           />
+                        </div>
+                        <div class="space-y-2 border-t border-white/10 pt-4">
+                           <span class="font-space text-[10px] text-cyanHud tracking-widest block">MARS</span>
+                           <h3 class="font-space text-xl font-semibold text-white">화성</h3>
+                           <p class="text-xs text-gray-400 font-light">인류의 제2 거주지로 각광받는 붉은 행성</p>
+                        </div>
+                     </div>
+
+                     <!-- Mars -->
+                     <div class="hud-border bg-black/60 p-8 text-center space-y-6 transition-colors">
+                        <div class="w-36 h-36 mx-auto relative flex justify-center items-center">
+                           <img
+                              src="./img/neptune.png"
+                              alt="Neptune"
+                              class="w-full h-full object-contain rounded-full"
+                           />
+                        </div>
+                        <div class="space-y-2 border-t border-white/10 pt-4">
+                           <span class="font-space text-[10px] text-cyanHud tracking-widest block">NEPTUNE</span>
+                           <h3 class="font-space text-xl font-semibold text-white">해왕성</h3>
+                           <p class="text-xs text-gray-400 font-light">태양계의 마지막 여덟 번째 행성</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </section>
+
+            <section id="experience" class="py-28 px-6 sm:px-16 border-t border-white/10 bg-[#08080c]">
+               <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
+                  <div class="w-full md:w-1/2 grid grid-cols-2 gap-4">
+                     <div class="hud-border overflow-hidden h-64">
+                        <img
+                           src="img/notice_01.png"
+                           alt="Mars Mission"
+                           class="w-full h-full object-cover"
+                        />
+                     </div>
+                     <div class="hud-border overflow-hidden h-64 mt-6">
+                        <img
+                           src="img/notice_02.png"
+                           alt="Mars Base"
+                           class="w-full h-full object-cover"
+                        />
+                     </div>
+                  </div>
+
+                  <div class="w-full md:w-1/2 space-y-6">
+                     <span class="font-space text-xs tracking-[0.3em] text-cyanHud uppercase block"
+                        >MARS ANALOG HABITAT</span
+                     >
+                     <h2 class="font-space text-3xl sm:text-4xl font-bold text-white uppercase leading-snug">
+                        1년 간 '화성의 삶' <br />
+                        체험 지원자 모집
+                     </h2>
+                     <p class="text-sm sm:text-base text-gray-400 font-light leading-relaxed">
+                        지구를 떠나지 않고 화성의 생존 환경을 그대로 재현한 모의 기지에서 1년간 임무를 수행할 대원을
+                        모집합니다. 미래의 유인 우주 탐사에 필요한 기술 개발에 직접 참여해 보세요.
+                     </p>
+                     <div>
+                        <button
+                           onclick="alert('화성 참가 지원 신청 페이지로 이동합니다.')"
+                           class=" px-8 py-3 bg-cyanHud text-black font-space text-xs font-bold tracking-widest uppercase hover:bg-white transition-all"
+                        >
+                           APPLY NOW
+                        </button>
+                     </div>
+                  </div>
+               </div>
+            </section>
+
+            <!-- SECTION 6: SATELLITES CAROUSEL (위성 및 소천체) -->
+            <section id="moons" class="py-28 px-6 sm:px-16 border-t border-white/10">
+               <div class="max-w-7xl mx-auto space-y-12">
+                  <div class="flex justify-between items-end border-b border-white/10 pb-6">
+                     <div>
+                        <span class="font-space text-xs tracking-[0.3em] text-cyanHud uppercase">satellite</span>
+                        <h2 class="font-space text-3xl font-bold text-white uppercase mt-1">위성과 왜소행성</h2>
+                     </div>
+                     <div class="flex gap-2">
+                        <button
+                           id="moonPrev"
+                           class=" p-3 border border-white/20 text-white hover:border-cyanHud hover:text-cyanHud transition-colors"
+                        >
+                           ←
+                        </button>
+                        <button
+                           id="moonNext"
+                           class=" p-3 border border-white/20 text-white hover:border-cyanHud hover:text-cyanHud transition-colors"
+                        >
+                           →
+                        </button>
+                     </div>
+                  </div>
+
+                  <!-- Moon Swiper -->
+                  <div class="swiper moon_slide w-full">
+                     <div class="swiper-wrapper">
+                        <div class="swiper-slide bg-black/40 p-6 space-y-4">
+                           <div class="h-48 flex justify-center items-center mb-10">
+                              <img
+                                 src="./img/moon.png"
+                                 alt="Moon"
+                                 class="h-full object-contain rounded-full"
+                              />
+                           </div>
+                           <div class="space-y-1">
+                              <span class="font-space text-xs text-cyanHud tracking-widest block">EARTH MOON</span>
+                              <h3 class="font-space text-lg font-bold text-white">달 (THE MOON)</h3>
+                              <p class="text-xs text-gray-400 font-light">지구의 유일한 위성이자 인류 최초 도달 천체</p>
+                           </div>
+                        </div>
+
+                        <div class="swiper-slide  bg-black/40 p-6 space-y-4">
+                           <div class="h-48 flex justify-center items-center mb-10"">
+                              <img
+                                 src="./img/io.png"
+                                 alt="Io"
+                                 class="h-full object-contain rounded-full"
+                              />
+                           </div>
+                           <div class="space-y-1">
+                              <span class="font-space text-xs text-cyanHud tracking-widest block"
+                                 >JUPITER MOON</span
+                              >
+                              <h3 class="font-space text-lg font-bold text-white">이오 (IO)</h3>
+                              <p class="text-xs text-gray-400 font-light">400개 이상의 활화산이 존재하는 목성의 위성</p>
+                           </div>
+                        </div>
+
+                        <div class="swiper-slide bg-black/40 p-6 space-y-4">
+                           <div class="h-48 flex justify-center items-center mb-10">
+                              <img
+                                 src="./img/ceres.png"
+                                 alt="Ceres"
+                                 class="h-full object-contain rounded-full"
+                              />
+                           </div>
+                           <div class="space-y-1">
+                              <span class="font-space text-xs text-cyanHud tracking-widest block"
+                                 >DWARF PLANET</span
+                              >
+                              <h3 class="font-space text-lg font-bold text-white">세레스 (CERES)</h3>
+                              <p class="text-xs text-gray-400 font-light">소행성대에 위치한 가장 큰 왜소행성</p>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </section>
+
+            <!-- SECTION 7: NEWS & GUIDES TABBED SECTION -->
+            <section id="news" class="py-28 px-6 sm:px-16 border-t border-white/10 bg-[#060608]">
+               <div class="max-w-7xl mx-auto space-y-12">
+                  <div
+                     class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 border-b border-white/10 pb-6"
+                  >
+                     <div>
+                        <span class="font-space text-xs tracking-[0.3em] text-cyanHud uppercase">DISPATCHES</span>
+                        <h2 class="font-space text-3xl font-bold text-white uppercase mt-1">소식 및 미션 가이드</h2>
+                     </div>
+
+                     <div class="flex gap-4 font-space text-xs tracking-widest">
+                        <button
+                           id="tabNewsBtn"
+                           onclick="switchTab('news')"
+                           class=" px-6 py-2.5 bg-cyanHud text-black font-bold uppercase transition-all"
+                        >
+                           새로운 소식
+                        </button>
+                        <button
+                           id="tabGuideBtn"
+                           onclick="switchTab('guide')"
+                           class="px-6 py-2.5 bg-transparent text-gray-400 font-bold uppercase hover:text-white transition-all"
+                        >
+                           가이드
+                        </button>
+                     </div>
+                  </div>
+
+                  <!-- News Tab Content Grid -->
+                  <div id="tabNewsContent" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                     <article
+                        class="bg-black border border-white/10 p-6 space-y-4 hover:border-cyanHud/40 transition-colors"
+                     >
+                        <span class="font-space text-sm text-cyanHud tracking-widest">2026.10.01</span>
+                        <h3 class="font-space text-lg font-bold text-white">
+                           제임스웹 망원경의 외계행성 심층 관측 데이터 공개
+                        </h3>
+                        <p class="text-sm text-gray-400 font-light leading-relaxed">
+                           새로운 대기 구성 성분이 발견되어 수증기 및 대기층 연구가 한층 탄력을 받고 있습니다.
+                        </p>
+                     </article>
+
+                     <article
+                        class="bg-black border border-white/10 p-6 space-y-4 hover:border-cyanHud/40 transition-colors"
+                     >
+                        <span class="font-space text-sm text-cyanHud tracking-widest">2026.09.28</span>
+                        <h3 class="font-space text-lg font-bold text-white">
+                           아르테미스 미션: 달 궤도 정거장 보급 완료
+                        </h3>
+                        <p class="text-sm text-gray-400 font-light leading-relaxed">
+                           성공적인 모듈 결합으로 유인 달 기지 건설 준비의 중요한 교두보가 마련되었습니다.
+                        </p>
+                     </article>
+
+                     <article
+                        class="bg-black border border-white/10 p-6 space-y-4 hover:border-cyanHud/40 transition-colors"
+                     >
+                        <span class="font-space text-sm text-cyanHud tracking-widest">2026.09.15</span>
+                        <h3 class="font-space text-lg font-bold text-white">목성 위성 유로파 탐사선 최종 궤도 진입</h3>
+                        <p class="text-sm text-gray-400 font-light leading-relaxed">
+                           얼음 껍질 아래 존재하는 내부 바다의 환경 연구가 본격적으로 시작되었습니다.
+                        </p>
+                     </article>
+                  </div>
+
+                  <div id="tabGuideContent" class="grid grid-cols-1 md:grid-cols-3 gap-8 hidden">
+                     <article
+                        class="bg-black border border-white/10 p-6 space-y-4 hover:border-cyanHud/40 transition-colors"
+                     >
+                        <span class="font-space text-sm text-cyanHud tracking-widest">GUIDE 01</span>
+                        <h3 class="font-space text-lg font-bold text-white">민간인을 위한 심우주 적응 가이드북</h3>
+                        <p class="text-xs text-gray-400 font-light leading-relaxed">
+                           무중력 공간에서의 기본 생활수칙과 신체 건강을 유지하는 필수 유의사항.
+                        </p>
+                     </article>
+
+                     <article
+                        class="bg-black border border-white/10 p-6 space-y-4 hover:border-cyanHud/40 transition-colors"
+                     >
+                        <span class="font-space text-sm text-cyanHud tracking-widest">GUIDE 02</span>
+                        <h3 class="font-space text-lg font-bold text-white">우주 사진 촬영 및 데이터 기록 요령</h3>
+                        <p class="text-sm text-gray-400 font-light leading-relaxed">
+                           강력한 우주선 환경에서 오로라 및 성운을 선명하게 기록하는 촬영 팁.
+                        </p>
+                     </article>
+
+                     <article
+                        class="bg-black border border-white/10 p-6 space-y-4 hover:border-cyanHud/40 transition-colors"
+                     >
+                        <span class="font-space text-sm text-cyanHud tracking-widest">GUIDE 03</span>
+                        <h3 class="font-space text-lg font-bold text-white">화성/달 기지 내 개인 식량 및 수분 섭취 가이드</h3>
+                        <p class="text-sm text-gray-400 font-light leading-relaxed">
+                           저중력 환경에서 소화율을 높이는 식단 구성과 정제수 보급 시스템 이용 수칙.
+                        </p>
+                     </article>
+                  </div>
+               </div>
+            </section>
+         </main>
+
+         <!-- FOOTER -->
+         <footer class="bg-black border-t border-white/10 py-16 px-6 sm:px-16 text-xs text-gray-500 font-space">
+            <div class="max-w-7xl mx-auto space-y-10">
+               <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                  <div class="space-y-2">
+                     <p class="text-sm text-gray-400 font-light">
+                        NATIONAL AERONAUTICS AND SOLAR SYSTEM EXPLORATION
+                     </p>
+                  </div>
+
+                  <div class="flex gap-6 text-gray-400">
+                     <a href="#" class="hover:text-cyanHud transition-colors">TWITTER / X</a>
+                     <a href="#" class="hover:text-cyanHud transition-colors">INSTAGRAM</a>
+                     <a href="#" class="hover:text-cyanHud transition-colors">YOUTUBE</a>
+                  </div>
+               </div>
+
+               <div
+                  class="pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] text-gray-600"
+               >
+                  <p>&copy; 2026 SPACED EXPLORATION INC. ALL RIGHTS RESERVED.</p>
+                  <div class="flex gap-6">
+                     <a href="#" class="hover:text-gray-400">PRIVACY POLICY</a>
+                     <a href="#" class="hover:text-gray-400">MISSION TERMS</a>
+                     <a href="#" class="hover:text-gray-400">SECURITY PROTOCOL</a>
+                  </div>
+               </div>
+            </div>
+         </footer>
+         <!-- JS -->
+         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+         <script src="script.js"></script>
+      </div>
+   </body>
+</html>
